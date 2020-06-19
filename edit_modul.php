@@ -1,0 +1,181 @@
+<?php
+session_start();
+include_once("lib/koneksi.php");
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>SMK Negeri 2 Kerinci</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/animate.min.css" rel="stylesheet">
+
+	<link href="css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="themea/twitter.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="dist/sweetalert.min.js"></script>
+	<style type="text/css">
+		.style2 {
+			font-family: "Times New Roman", Times, serif;
+			font-size: 16px;
+		}
+
+		.style7 {
+			font-size: 16px;
+			font-family: "Trebuchet MS";
+		}
+	</style>
+</head>
+
+<body>
+	<p align="center">
+		<img src="images/smkn2kerinci.jpg" alt="" width="90%"></p>
+
+	<div class="navbar" id="menu">
+		<?php include_once("menu1.php"); ?>
+	</div>
+	<div class="page">
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="alert alert-info">
+					<marquee>Sistem Informasi Pelanggaran Tata Tertib Sekolah di SMK Negeri 2 Kerinci
+					</marquee>
+				</div>
+				<?php
+				$id	= $_GET['id'];
+				$sql	= mysql_query("SELECT * FROM modul JOIN kelas_online ON modul.kelas_id = kelas_online.judul WHERE id='$id'");
+				$data	= mysql_fetch_array($sql);
+				if (mysql_num_rows($sql) > 0) {
+				?>
+					<div class="modal-header">
+						<h3>Edit Modul</h3>
+					</div>
+					<div style="margin-top:10px;">
+						<form class="form-horizontal" name="form1" method="post" action="" enctype="multipart/form-data">
+							<div class="control-group">
+								<label>Nama Kategori</label>
+								<div class="controls">
+									<select class="form-control" name="nama">
+										<option value="<?php echo $data['nama_kelas'] ?>"><?php echo $data['nama_kelas'] ?></option>
+										<option value="">--Pilih--</option>
+										<?php
+										$a = mysql_query("SELECT * FROM kategori");
+										while ($b = mysql_fetch_array($a)) {
+											echo '<option value="' . $b['kategori'] . '">' . $b['kategori'] . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label>Judul Kelas</label>
+								<div class="controls">
+									<select class="form-control" name="judul">
+										<option value="<?php echo $data['kelas_id'] ?>"><?php echo $data['judul'] ?></option>
+										<option value="">--Pilih--</option>
+										<?php
+										$c = mysql_query("SELECT * FROM kelas_online");
+										while ($d = mysql_fetch_array($c)) {
+											echo '<option value="' . $d['kelas_id'] . '">' . $d['judul'] . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label">Modul</label>
+								<div class="controls">
+									<?php echo $data['modul'] ?>
+									<input name="gambar[]" type="file" class="form-control" multiple>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="update"></label>
+								<div class="controls">
+									<input name="update" type="submit" id="update" value="Update" class="btn btn-success">
+									<input name="batal" type="submit" id="batal" value="Batal" class="btn btn-warning">
+								</div>
+							</div>
+
+						<?php }
+					if (isset($_POST['update'])) {
+						$nama     	 = $_POST['nama'];
+						$judul     	 = $_POST['judul'];
+						$nama_gambar = $_FILES['gambar']['name'][$i];
+						$lokasi		 = $_FILES['gambar']['tmp_name'][$i];
+
+						if ($nama_gambar != "") {
+							$gambar_lama = $data->gambar;
+
+							unlink('images/' . $gambar_lama);
+							move_uploaded_file($lokasi, "images/$nama_gambar");
+
+							$update = mysql_query("UPDATE modul SET nama_kelas	='$nama',
+																	judul_kelas	='$judul',
+																	modul  		='$nama_gambar'
+																	WHERE
+																	id			='$id' ");
+						} else {
+							$update = mysql_query("UPDATE modul SET nama_kelas	='$nama',
+																	judul_kelas	='$judul'
+																	WHERE
+																	id			='$id' ");
+						}
+
+						if ($update) {
+							echo "
+									<script>
+										alert('Data Berhasil Diupdate');
+										window.location='modul.php';
+									</script>
+									";
+						} else {
+							echo "
+									<script>
+										alert('Data Gagal Diupdate');
+										window.location='modul.php';
+									</script>
+						";
+						}
+					}
+
+
+					if (isset($_POST['batal'])) {
+						echo "<script language=javascript>
+								window.location='modul.php';
+								</script>";
+						exit;
+					}
+						?>
+						</form>
+					</div>
+			</div>
+			<div class="col-md-4">
+
+				<div class="sidebar-module">
+					<?php
+
+					include "sidebar.php";
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<h6>&copy; Copyright <?php echo date('Y');  ?> All Right Reserved . All Right Reserved . <strong>SMK Negeri 2 Kerinci</strong></h6>
+	</div>
+	<?php
+	include_once("modal-login.php");
+	?>
+</body>
+
+</html>
