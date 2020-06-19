@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2020 at 04:43 PM
+-- Generation Time: Jun 19, 2020 at 11:37 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -124,6 +124,27 @@ INSERT INTO `jurusan` (`kode_jurusan`, `nama_jurusan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE IF NOT EXISTS `kategori` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id`, `kategori`) VALUES
+(1, 'Deskripsi Kelas'),
+(2, 'Materi'),
+(3, 'Diskusi Kelas');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kelas`
 --
 
@@ -150,29 +171,51 @@ INSERT INTO `kelas` (`kode_kelas`, `nama_kelas`, `wali_kelas`) VALUES
 
 CREATE TABLE IF NOT EXISTS `kelas_online` (
   `kelas_id` int(11) NOT NULL AUTO_INCREMENT,
+  `kategori_id` int(11) NOT NULL,
   `judul` varchar(50) NOT NULL,
   `kategori` varchar(50) NOT NULL,
   `gambar` text NOT NULL,
   `tingkatan` varchar(100) NOT NULL,
   `deskripsi` text NOT NULL,
   `fasilitas` varchar(200) NOT NULL,
-  `mentor` varchar(100) NOT NULL,
-  `jb_mentor` varchar(100) NOT NULL,
+  `mentor_id` int(11) NOT NULL,
   `keterangan` varchar(200) NOT NULL,
   `biaya` varchar(100) NOT NULL,
   PRIMARY KEY (`kelas_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `kelas_online`
 --
 
-INSERT INTO `kelas_online` (`kelas_id`, `judul`, `kategori`, `gambar`, `tingkatan`, `deskripsi`, `fasilitas`, `mentor`, `jb_mentor`, `keterangan`, `biaya`) VALUES
-(1, 'Investasi untuk Mahasiswa', 'Development', 'e534c5eaabb1b6b0246cb64b410bbe66.png', 'Pemula', 'Kenapa investasi bisa dibilang lebih baik dari menabung?\r\n\r\nMenurut Karaniya Dharmasaputra, CEO Bareksa.com, di era digital saat ini investasi lebih baik dibandingkan dengan menabung. Jika kita menyimpan uang dalam instrumen investasi seperti reksadana, bertahun-tahun kemudian bisa bertumbuh. Sedangkan, jika disimpan di bank lama-kelamaan habis terpotong biaya administrasi. Apalagi, sekarang investasi bisa mudah dilakukan hanya dengan handphone. Bahkan, dengan Rp 10.000 saja sudah bisa memulai investasi reksadana.\r\n\r\nDiprediksi kebutuhan di masa depan akan lebih ‘menggila’ dibanding saat ini. Sehingga, perlu memulai investasi agar hasil yang diperoleh tiga kali lipat lebih banyak. Masyarakat Indonesia juga perlu diberikan pengetahuan mengenai investasi sejak dini.\r\n\r\nSayangnya, 70 persen masyarakat Indonesia masih memilih untuk menabung. Selain itu, literasi keuangan Indonesia sangat rendah dan yang mengerti hanya sekitar 1,25 persen saja. Sedangkan, negara lain sudah mengetahui keuntungan yang didapat dari investasi lebih tinggi dibanding menabung. (source : www.kompas.com)\r\n\r\nOleh karena itu, sebagai salah satu upaya untuk meningkatkan kesadaran akan pentingnya investasi sejak dini, Luarsekolah dan DIKA ingin mengajak para pemuda Indonesia, khususnya para mahasiswa untuk ikut serta dalam webinar dengan tema “Investasi untuk Mahasiswa.” Bersama Anis Haerunisa (Research Fellow Direktorat Pasar Modal Syariah), kita akan membahas lebih lanjut tentang pengertian investasi, tipe-tipe investasi, gimana cara memulai investasi, dan masih banyak lagi.', 'Sertifikat, Konsultasi', 'Gema Fajar Ramadhan', 'Web Programmer', '1 Bulan, 7 Modul, Video, E-Book, Podcast', '300000'),
-(3, 'Step by Step Menjadi Seorang Trainer Profesional', 'Development', '564ba899b87ce4910e9ec497b997d4c5.png', 'Pemula', 'Dunia public speaking itu luas. Nah, salah satu profesi yang bisa dijajaki dengan kemampuan public speaking salah satunya adalah trainer. Tapi, apakah cukup menjadi trainer hanya bermodalkan public speaking?\r\n\r\nSimak langkah-langkah menjadi trainer profesional yang langsung dibawakan oleh Kak Afif Luthfi, salah satu kreator di Luarsekolah yang juga seorang penulis buku "Maestro Public Speaking", Certified Trainer BNSP dan NLP Practitioner, NFNLP USA. Beliau akan sharing pengalamannya sebagai trainer yang sudah mengisi di berbagai perusahaan nasional dan multinasional.\r\n\r\n\r\nMungkin di antara kamu ada yg ingin tanya-tanya juga seputar tips presentasi dan menjadi pembicara? Kamu juga bisa diskusi langsung dengan narasumber. Jadi, jangan lewatkan webinar yang satu ini!', 'Sertifikat, Konsultasi', 'Agung Laksmana', 'Web Programmer', '1 Bulan, 7 Modul', '29000'),
-(4, 'Panduan Praktis Menulis Fiksi', 'Development', '061f76111e829e63ba691289ef01e416.png', 'All Levels', 'Fiksi merupakan dunia sarat imaji; wadah buat kamu yang pengin berbagi cerita. Dari romance, misteri, fiksi ilmiah, hingga fantasi. Fiksi juga adalah salah satu genre tulisan populer dengan target pasar besar nan dinamis.\r\n\r\nDi kelas online penulisan fiksi bersama Luarsekolah, kamu bakal mempelajari banyak hal. Sebut saja pengenalan terhadap ranah fiksi, unsur yang membangun sebuah cerita, pengiriman naskah, hingga poin-poin dalam kontrak penerbitan yang tak boleh luput dari perhatian. Dengan mempelajari hal-hal dasar seputar menulis fiksi, kamu diharapkan mampu menyiapkan naskah yang layak dan meningkatkan peluang diterima penerbit.\r\n\r\nApa yang akan kamu pelajari di kelas Panduan Praktis Menulis Fiksi?\r\n\r\nMengenal Fiksi Dan Genre-Genrenya\r\n\r\nMengenal ragam tulisan dan genre fiksi bakal memudahkanmu menentukan jenis naskah yang hendak ditulis.\r\n\r\nMemahami Unsur Instrinsik\r\n\r\nMembangun karakter, plot, hingga adegan dengan baik akan menghasilkan kisah yang enak dibaca dan menarik atensi penerbit.\r\n\r\nMenyiapkan Dokumen Pendukung Naskah\r\n\r\nSelain naskah, ada dokumen penunjang seperti sinopsis yang tak kalah krusial untuk disiapkan.\r\n\r\nMempelajari Kontrak Penerbitan\r\n\r\nMencermati poin-poin penting dalam kontrak penerbitan membantu penulis mengurus royalti hingga hak terbitnya.', 'Sertifikat, Konsultasi', 'Putra Evans Pratama', 'Web Programmer', '1 Bulan, 12 Modul', 'Gratis'),
-(5, 'Sukses Jualan Online di Marketplace', 'Business', '169d060ecde3d7a25bb92d82b545ad0e.png', 'Pemula', 'Deskripsi Kelas\r\n\r\nPada masa sekarang, berjualan tidak lagi harus memiliki toko dan membayar sewa. Alternatifnya adalah jualan online melalui marketplace yang ada dan sosial media. Namun, banyak penjual pemula belum mengerti betul tentang bagaimana memulai sebuah toko online atau mengelolanya. Bisa karena produknya belum matang atau tidak paham cara menggunakan iklan di toko online. Oleh karena itu, luar sekolah hadir memfasilitasi member untuk belajar bagaimana memulai dan menjalankan sebuah toko online.\r\n\r\nApa yang akan kamu pelajari di kelas Sukses Jualan Online di Marketplace?\r\nProses Berjualan Di Toko Online\r\n\r\nPada materi ini kamu akan dijelaskan seluruh proses berjualan sampai produkmu termuat di marketplace tersebut\r\n\r\nMenguatkan Value Produk Dan Marketing Online\r\n\r\nValue ini menjadi sebuah elemen penting yang harus dimunculkan pada produk dan marketingmu\r\n\r\nMemaksimalkan Semua Fitur Yang Tersedia\r\n\r\nPada materi ini kamu akan mengupas semua fitur yang tersedia supaya kamu bisa memaksimalkannya\r\n\r\nSilabus Kelas\r\nBab 1 : Memahami Prinsip Umum Jualan Online\r\nBab 2 : Memilih Marketplace yang Cocok\r\nBab 3 : Memasang Foto Produk yang Menarik\r\nBab 4 : Memaksimalkan Iklan\r\nBab 5 : Strategi Keyword untuk Iklan\r\nBab 6 : Service Oriented dalam Jualan Online\r\nBab 7 : Suka Duka Jualan Online sampai Jadi Starseller', 'Sertifikat, Konsultasi', 'Aditya Gusta', 'Web Programmer', '1 Bulan, 20 Modul', '29000'),
-(7, 'Full-Stack Web Developer', 'Premium', 'kSw6pHIs4s2OBJlcr14KxnXFA0uCNWfdGVihHEsB.png', 'All Levels', 'Kelas BWAFWD adalah kelas Full-Stack Web Developer dan juga Web Designer yang di mana kita akan mempelajari UX design, UI design, Website Development dengan Bootstrap dan Laravel\r\n\r\nJika saat ini kamu sedang bingung untuk fokus kepada karir apa maka kelas ini cocok sekali karena kamu akan mempelajari banyak bidang.\r\n\r\nSetelah menyelesaikan kelas ini kamu dapat memilih apa yang akan kamu fokuskan sesuai dengan materi pada kelas BWAFWD.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam at, nihil doloremque eveniet sequi neque facere? Culpa labore alias reiciendis rerum, cumque in laboriosam molestias tempore temporibus aut qui beatae?\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam at, nihil doloremque eveniet sequi neque facere? Culpa labore alias reiciendis rerum, cumque in laboriosam molestias tempore temporibus aut qui beatae?\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam at, nihil doloremque eveniet sequi neque facere? Culpa labore alias reiciendis rerum, cumque in laboriosam molestias tempore temporibus aut qui beatae?', 'Sertifikat, Konsultasi', 'Gema Fajar Ramadhan', 'Web Programmer', 'Sistem Operasi, \r\nWin 7 8 10 / Mac OS / Linux,', '350000');
+INSERT INTO `kelas_online` (`kelas_id`, `kategori_id`, `judul`, `kategori`, `gambar`, `tingkatan`, `deskripsi`, `fasilitas`, `mentor_id`, `keterangan`, `biaya`) VALUES
+(1, 1, 'Investasi untuk Mahasiswa', 'Development', 'e534c5eaabb1b6b0246cb64b410bbe66.png', 'Pemula', 'Kenapa investasi bisa dibilang lebih baik dari menabung?\r\n\r\nMenurut Karaniya Dharmasaputra, CEO Bareksa.com, di era digital saat ini investasi lebih baik dibandingkan dengan menabung. Jika kita menyimpan uang dalam instrumen investasi seperti reksadana, bertahun-tahun kemudian bisa bertumbuh. Sedangkan, jika disimpan di bank lama-kelamaan habis terpotong biaya administrasi. Apalagi, sekarang investasi bisa mudah dilakukan hanya dengan handphone. Bahkan, dengan Rp 10.000 saja sudah bisa memulai investasi reksadana.\r\n\r\nDiprediksi kebutuhan di masa depan akan lebih ‘menggila’ dibanding saat ini. Sehingga, perlu memulai investasi agar hasil yang diperoleh tiga kali lipat lebih banyak. Masyarakat Indonesia juga perlu diberikan pengetahuan mengenai investasi sejak dini.\r\n\r\nSayangnya, 70 persen masyarakat Indonesia masih memilih untuk menabung. Selain itu, literasi keuangan Indonesia sangat rendah dan yang mengerti hanya sekitar 1,25 persen saja. Sedangkan, negara lain sudah mengetahui keuntungan yang didapat dari investasi lebih tinggi dibanding menabung. (source : www.kompas.com)\r\n\r\nOleh karena itu, sebagai salah satu upaya untuk meningkatkan kesadaran akan pentingnya investasi sejak dini, Luarsekolah dan DIKA ingin mengajak para pemuda Indonesia, khususnya para mahasiswa untuk ikut serta dalam webinar dengan tema “Investasi untuk Mahasiswa.” Bersama Anis Haerunisa (Research Fellow Direktorat Pasar Modal Syariah), kita akan membahas lebih lanjut tentang pengertian investasi, tipe-tipe investasi, gimana cara memulai investasi, dan masih banyak lagi.', 'Sertifikat, Konsultasi', 1, '1 Bulan, 7 Modul, Video, E-Book, Podcast', '300000'),
+(3, 1, 'Step by Step Menjadi Seorang Trainer Profesional', 'Development', '564ba899b87ce4910e9ec497b997d4c5.png', 'Pemula', 'Dunia public speaking itu luas. Nah, salah satu profesi yang bisa dijajaki dengan kemampuan public speaking salah satunya adalah trainer. Tapi, apakah cukup menjadi trainer hanya bermodalkan public speaking?\r\n\r\nSimak langkah-langkah menjadi trainer profesional yang langsung dibawakan oleh Kak Afif Luthfi, salah satu kreator di Luarsekolah yang juga seorang penulis buku "Maestro Public Speaking", Certified Trainer BNSP dan NLP Practitioner, NFNLP USA. Beliau akan sharing pengalamannya sebagai trainer yang sudah mengisi di berbagai perusahaan nasional dan multinasional.\r\n\r\n\r\nMungkin di antara kamu ada yg ingin tanya-tanya juga seputar tips presentasi dan menjadi pembicara? Kamu juga bisa diskusi langsung dengan narasumber. Jadi, jangan lewatkan webinar yang satu ini!', 'Sertifikat, Konsultasi', 2, '1 Bulan, 7 Modul', '29000'),
+(4, 1, 'Panduan Praktis Menulis Fiksi', 'Development', '061f76111e829e63ba691289ef01e416.png', 'All Levels', 'Fiksi merupakan dunia sarat imaji; wadah buat kamu yang pengin berbagi cerita. Dari romance, misteri, fiksi ilmiah, hingga fantasi. Fiksi juga adalah salah satu genre tulisan populer dengan target pasar besar nan dinamis.\r\n\r\nDi kelas online penulisan fiksi bersama Luarsekolah, kamu bakal mempelajari banyak hal. Sebut saja pengenalan terhadap ranah fiksi, unsur yang membangun sebuah cerita, pengiriman naskah, hingga poin-poin dalam kontrak penerbitan yang tak boleh luput dari perhatian. Dengan mempelajari hal-hal dasar seputar menulis fiksi, kamu diharapkan mampu menyiapkan naskah yang layak dan meningkatkan peluang diterima penerbit.\r\n\r\nApa yang akan kamu pelajari di kelas Panduan Praktis Menulis Fiksi?\r\n\r\nMengenal Fiksi Dan Genre-Genrenya\r\n\r\nMengenal ragam tulisan dan genre fiksi bakal memudahkanmu menentukan jenis naskah yang hendak ditulis.\r\n\r\nMemahami Unsur Instrinsik\r\n\r\nMembangun karakter, plot, hingga adegan dengan baik akan menghasilkan kisah yang enak dibaca dan menarik atensi penerbit.\r\n\r\nMenyiapkan Dokumen Pendukung Naskah\r\n\r\nSelain naskah, ada dokumen penunjang seperti sinopsis yang tak kalah krusial untuk disiapkan.\r\n\r\nMempelajari Kontrak Penerbitan\r\n\r\nMencermati poin-poin penting dalam kontrak penerbitan membantu penulis mengurus royalti hingga hak terbitnya.', 'Sertifikat, Konsultasi', 3, '1 Bulan, 12 Modul', 'Gratis'),
+(5, 1, 'Sukses Jualan Online di Marketplace', 'Business', '169d060ecde3d7a25bb92d82b545ad0e.png', 'Pemula', 'Deskripsi Kelas\r\n\r\nPada masa sekarang, berjualan tidak lagi harus memiliki toko dan membayar sewa. Alternatifnya adalah jualan online melalui marketplace yang ada dan sosial media. Namun, banyak penjual pemula belum mengerti betul tentang bagaimana memulai sebuah toko online atau mengelolanya. Bisa karena produknya belum matang atau tidak paham cara menggunakan iklan di toko online. Oleh karena itu, luar sekolah hadir memfasilitasi member untuk belajar bagaimana memulai dan menjalankan sebuah toko online.\r\n\r\nApa yang akan kamu pelajari di kelas Sukses Jualan Online di Marketplace?\r\nProses Berjualan Di Toko Online\r\n\r\nPada materi ini kamu akan dijelaskan seluruh proses berjualan sampai produkmu termuat di marketplace tersebut\r\n\r\nMenguatkan Value Produk Dan Marketing Online\r\n\r\nValue ini menjadi sebuah elemen penting yang harus dimunculkan pada produk dan marketingmu\r\n\r\nMemaksimalkan Semua Fitur Yang Tersedia\r\n\r\nPada materi ini kamu akan mengupas semua fitur yang tersedia supaya kamu bisa memaksimalkannya\r\n\r\nSilabus Kelas\r\nBab 1 : Memahami Prinsip Umum Jualan Online\r\nBab 2 : Memilih Marketplace yang Cocok\r\nBab 3 : Memasang Foto Produk yang Menarik\r\nBab 4 : Memaksimalkan Iklan\r\nBab 5 : Strategi Keyword untuk Iklan\r\nBab 6 : Service Oriented dalam Jualan Online\r\nBab 7 : Suka Duka Jualan Online sampai Jadi Starseller', 'Sertifikat, Konsultasi', 4, '1 Bulan, 20 Modul', '29000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `komentar`
+--
+
+CREATE TABLE IF NOT EXISTS `komentar` (
+  `komentar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `kelas_id` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `diskusi` varchar(200) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`komentar_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`komentar_id`, `kelas_id`, `nama`, `email`, `diskusi`, `date`) VALUES
+(4, 3, 'Adit Bolang', 'aditbolang@gmail.com', 'Adit bolang adalah adit yang bolang bolang', '2020-06-19 09:48:21');
 
 -- --------------------------------------------------------
 
@@ -194,6 +237,34 @@ CREATE TABLE IF NOT EXISTS `konseling` (
 
 INSERT INTO `konseling` (`id_konseling`, `tgl`, `nis`, `catatan`) VALUES
 (2, '2019-01-19', '002', 'Maasalah X');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `modul`
+--
+
+CREATE TABLE IF NOT EXISTS `modul` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_kelas` varchar(150) NOT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `modul` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `modul`
+--
+
+INSERT INTO `modul` (`id`, `nama_kelas`, `kelas_id`, `modul`) VALUES
+(13, 'Materi', 1, '1312012208970002_kartuUjian.pdf'),
+(14, 'Materi', 1, '1371015907900003_kartuAkun.pdf'),
+(15, 'Materi', 1, '1371015907900003_kartuAkun_3.pdf'),
+(16, 'Materi', 1, '1371015907900003_kartuAkun_4.pdf'),
+(17, 'Materi', 1, '1371016102950005_kartuAkun.pdf'),
+(18, 'Materi', 1, 'PENG-2520.pdf'),
+(19, 'Materi', 3, 'BNBA KEMSOS NON DTKS.pdf'),
+(20, 'Materi', 5, 'Akte Kelahiran.pdf');
 
 -- --------------------------------------------------------
 
@@ -247,6 +318,30 @@ INSERT INTO `siswa` (`nis`, `password`, `nama_siswa`, `jk`, `tempat_lahir`, `tgl
 ('002', '827ccb0eea8a706c4c34a16891f84e7b', 'Windi Sri Rahayu', 'P', 'Sijunjung', '1997-02-15', 'Jln pasar baru', '08237839525', 1, 2),
 ('151321089', '827ccb0eea8a706c4c34a16891f84e7b', 'Robbi Saputra', 'L', 'Padang', '2002-12-01', 'Jl. asahan Timur No 21', '082170215567', 1, 2),
 ('151321090', '827ccb0eea8a706c4c34a16891f84e7b', 'Gebby Kurnia', 'L', 'Padang', '2002-12-12', 'Jl. Sudirman', '08137455677', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_komentar`
+--
+
+CREATE TABLE IF NOT EXISTS `sub_komentar` (
+  `sub_komentar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `komentar_id` int(11) NOT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `nama` varchar(25) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `sub_komentar` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sub_komentar_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `sub_komentar`
+--
+
+INSERT INTO `sub_komentar` (`sub_komentar_id`, `komentar_id`, `kelas_id`, `nama`, `email`, `sub_komentar`, `date`) VALUES
+(1, 4, 3, 'Adit Hell', 'aditbolang@gmail.com', 'Bahwa sesungguhnya adit bolang adalah adit boleang', '2020-06-19 09:54:21');
 
 -- --------------------------------------------------------
 
@@ -330,6 +425,38 @@ INSERT INTO `tbl_kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_diskusi`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_diskusi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(150) NOT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `judul` varchar(150) NOT NULL,
+  `modul_id` int(11) NOT NULL,
+  `keterangan` varchar(150) NOT NULL,
+  `gambar` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `tb_diskusi`
+--
+
+INSERT INTO `tb_diskusi` (`id`, `username`, `kelas_id`, `judul`, `modul_id`, `keterangan`, `gambar`) VALUES
+(3, 'qypofalynu', 1, 'Quia dolorem nisi en', 14, 'Quod qui voluptas la', '564ba899b87ce4910e9ec497b997d4c5.png'),
+(4, 'Aby', 3, 'Silahkan Dibaca Sebelum Membuat Diskusi Baru Atau Menjawab Diskusi', 19, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos cum modi ipsam eos libero quas, voluptates non consectetur animi quam et eius te', '564ba899b87ce4910e9ec497b997d4c5.png'),
+(5, 'paweg', 3, 'Consequat Sed qui v', 19, 'Exercitation distinc', 'alur.jpg'),
+(6, 'mokyb', 1, 'Est dolorem quis ni', 17, 'Omnis maiores nisi a', '061f76111e829e63ba691289ef01e416.png'),
+(7, 'gakegykola', 1, 'Nam qui ex qui illo ', 16, 'Eum ut excepturi exp', '061f76111e829e63ba691289ef01e416.png'),
+(8, 'google', 1, 'Voluptate et repudia', 18, 'Maiores quas ullam n', '061f76111e829e63ba691289ef01e416.png'),
+(9, 'mivovew', 5, 'In voluptate aut sit', 20, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, tenetur excepturi. Voluptatem amet tempore minima porro unde ducimus quisquam illo ', '5427017_20140208085651.jpg'),
+(10, 'ricirorus', 1, 'Porro ut ullam itaqu', 18, 'Sit quasi quod dolo', '5427017_20140208085800.jpg'),
+(11, 'satybuqetu', 1, 'Maxime iste dolor nu', 16, 'Quas exercitationem ', '01.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_pemateri`
 --
 
@@ -339,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `tb_pemateri` (
   `jabatan` varchar(100) NOT NULL,
   `foto` varchar(100) NOT NULL,
   PRIMARY KEY (`id_pemateri`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tb_pemateri`
@@ -349,4 +476,5 @@ INSERT INTO `tb_pemateri` (`id_pemateri`, `nama`, `jabatan`, `foto`) VALUES
 (1, 'Gema Fajar Ramadhan', 'Web Programmer', 'avatar_16.jpg'),
 (2, 'Agung Laksmana', 'Web Programmer', 'avatar_7.jpg'),
 (3, 'Putra Evans Pratama', 'Web Programmer', 'avatar_10.jpg'),
-(4, 'Aditya Gusta', 'Web Programmer', 'avatar_17.jpg');
+(4, 'Aditya Gusta', 'Web Programmer', 'avatar_17.jpg'),
+(5, 'Vero aut ea corporis', 'Eos cupiditate reici', '1. Robot Industri.jpg');
