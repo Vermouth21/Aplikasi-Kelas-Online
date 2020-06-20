@@ -13,7 +13,7 @@ while ($sql = mysql_fetch_array($nagari)) {
 ?>
 
 	<div class="col-md-3">
-		<div class="box" style="height: 420px ">
+		<div class="box" style="height: auto ">
 			<a href="?p=detail_kelas&id=<?php echo $sql['kelas_id']; ?>"><img style="width: 100%;" class="img-fluid" src="images/<?php echo $sql['gambar']; ?>"></a>
 			<div class="desc">
 				<h4>

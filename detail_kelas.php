@@ -65,9 +65,80 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                                     <div class="panel-body">
                                         <h4 class="text-center" style="margin-top: -20px; margin-bottom: -10px">
                                             <strong> <?php echo $sql['judul']; ?> </strong><br>
-                                            <strong>Rp.&nbsp;<span class="text-primary" align=left><?php echo $sql['biaya']; ?></span> </strong><br><br>
-                                            <strong><a class="btn btn-danger lead" href="">Daftar Webinar </a></strong>
+                                            <strong>Rp.&nbsp;<span class="text-primary" align=left><?php echo number_format($sql['biaya'], 0, ',', '.'); ?></span> </strong><br><br>
+                                            <strong><a data-toggle="modal" data-target="#myModal" class="btn btn-danger lead" href="">Daftar Webinar </a></strong>
                                         </h4>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div id="myModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Masukkan data anda dengan benar !!!</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="" method="POST">
+                                                        <div class="form-group">
+                                                            <label for="">Nama :</label>
+                                                            <input type="hidden" value="<?php echo $sql['kelas_id'] ?>" name="kelas_id">
+                                                            <input type="text" class="form-control" placeholder="Masukkan nama anda..." name="nama">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Email :</label>
+                                                            <input type="email" class="form-control" placeholder="Masukkan email anda..." name="email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Jenis Kelamin :</label>
+                                                            <select name="jenis_kelamin" id="" class="form-control">
+                                                                <option value="">Laki-laki</option>
+                                                                <option value="">Perempuan</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">No HP :</label>
+                                                            <input type="number" class="form-control" placeholder="Masukkan nomor anda..." name="nohp">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Alamat :</label>
+                                                            <input type="text" class="form-control" placeholder="Masukkan alamat anda..." name="alamat">
+                                                        </div>
+                                                        <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+
+                                                </div>
+                                            </div>
+                                            <?php
+                                            if (isset($_POST['simpan'])) {
+                                                $kelas_id = $_POST['kelas_id'];
+                                                $nama = $_POST['nama'];
+                                                $email = $_POST['email'];
+                                                $jenis_kelamin = $_POST['jenis_kelamin'];
+                                                $nohp = $_POST['nohp'];
+                                                $alamat = $_POST['alamat'];
+
+                                                $sql = mysql_query("INSERT INTO `pendaftaran`(kelas_id, nama, email, jenis_kelamin, nohp, alamat) 
+                                                                    VALUES
+                                                                    ('$kelas_id','$nama','$email','$jenis_kelamin','$nohp','$alamat')");
+                                                if ($sql) {
+                                                    echo "<script>
+                                                    alert('Anda OTelah Berhasil Mendaftar, Silahkan Login');
+                                                    window.location='index.php?p=detail_kelas&id=';
+                                                    </script>";
+                                                } else {
+                                                    echo "<script>
+                                                    alert('Data Gagal disimpan');
+                                                    window.location='index.php?p=detail_kelas&id=';
+                                                    </script>";
+                                                }
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
 
                                     <div class="panel-body" style="margin-top: -20px; height: 70px">

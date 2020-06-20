@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2020 at 11:37 AM
+-- Generation Time: Jun 19, 2020 at 03:30 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -202,11 +202,12 @@ INSERT INTO `kelas_online` (`kelas_id`, `kategori_id`, `judul`, `kategori`, `gam
 
 CREATE TABLE IF NOT EXISTS `komentar` (
   `komentar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_diskusi` int(11) DEFAULT NULL,
   `kelas_id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `diskusi` varchar(200) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `diskusi` text NOT NULL,
+  `date` date NOT NULL,
   PRIMARY KEY (`komentar_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -214,8 +215,8 @@ CREATE TABLE IF NOT EXISTS `komentar` (
 -- Dumping data for table `komentar`
 --
 
-INSERT INTO `komentar` (`komentar_id`, `kelas_id`, `nama`, `email`, `diskusi`, `date`) VALUES
-(4, 3, 'Adit Bolang', 'aditbolang@gmail.com', 'Adit bolang adalah adit yang bolang bolang', '2020-06-19 09:48:21');
+INSERT INTO `komentar` (`komentar_id`, `id_diskusi`, `kelas_id`, `nama`, `email`, `diskusi`, `date`) VALUES
+(1, 4, 3, 'Eaque culpa molestia', 'lagapulu@mailinator.com', 'Non cillum ad et eiu', '2020-06-19');
 
 -- --------------------------------------------------------
 
@@ -334,14 +335,12 @@ CREATE TABLE IF NOT EXISTS `sub_komentar` (
   `sub_komentar` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sub_komentar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `sub_komentar`
 --
 
-INSERT INTO `sub_komentar` (`sub_komentar_id`, `komentar_id`, `kelas_id`, `nama`, `email`, `sub_komentar`, `date`) VALUES
-(1, 4, 3, 'Adit Hell', 'aditbolang@gmail.com', 'Bahwa sesungguhnya adit bolang adalah adit boleang', '2020-06-19 09:54:21');
 
 -- --------------------------------------------------------
 
