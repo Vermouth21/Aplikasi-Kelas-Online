@@ -135,6 +135,17 @@ $siswa = <<<MENUU
 
 MENUU;
 
+$member = <<<MENUU
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li><a href="index.php">Dashboard</a></li>
+					<li><a href="index.php?p=view_kelas_online">Kelas Online</a></li>
+					<li><a href="logout.php">Logout</a></li>
+				</ul>
+			</div>
+
+MENUU;
+
 
 
 if (@$_SESSION['level'] == 'Guru_Piket') {
@@ -147,7 +158,8 @@ if (@$_SESSION['level'] == 'Guru_Piket') {
 	echo $kepala;
 } else if (@$_SESSION['level'] == 'Siswa') {
 	echo $siswa;
-}
+} else if (@$_SESSION['level'] == 'Member') {
+	echo $member;}
 
 
 // $level=='Guru_Piket' || $level=='Wali_Kelas' || $level=='Guru_BK' || $level='Kepala_Sekolah'

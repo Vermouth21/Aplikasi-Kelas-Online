@@ -105,55 +105,8 @@ while ($a = mysql_fetch_array($koneksi)) {
                             </p>
                         </div>
                     <?php } ?>
-
-                    <!-- <div class="box" style="height: auto">
-                    <h3><a class="text-danger" href="">Silahkan Dibaca Sebelum Membuat Diskusi Baru Atau Menjawab Diskusi</a></h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos cum modi ipsam eos libero quas, voluptates non consectetur animi quam et eius tempora harum quidem possimus ad vitae reiciendis quisquam!..
-                        <br>
-                        <br>
-
-                        <i class="fa fa-user">&nbsp;Aby</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-book">&nbsp;Modul 7</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-clock-o">&nbsp;10 Bulan Yang Lalu</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-comments">&nbsp;0 Pembahasan</i>
-                    </p>
-                </div>
-                <div class="box" style="height: auto">
-                    <h3><a class="text-danger" href="">Silahkan Dibaca Sebelum Membuat Diskusi Baru Atau Menjawab Diskusi</a></h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos cum modi ipsam eos libero quas, voluptates non consectetur animi quam et eius tempora harum quidem possimus ad vitae reiciendis quisquam!..
-                        <br>
-                        <br>
-
-                        <i class="fa fa-user">&nbsp;Aby</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-book">&nbsp;Modul 7</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-clock-o">&nbsp;10 Bulan Yang Lalu</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-comments">&nbsp;0 Pembahasan</i>
-                    </p>
-                </div>
-                <div class="box" style="height: auto">
-                    <h3><a class="text-danger" href="">Silahkan Dibaca Sebelum Membuat Diskusi Baru Atau Menjawab Diskusi</a></h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos cum modi ipsam eos libero quas, voluptates non consectetur animi quam et eius tempora harum quidem possimus ad vitae reiciendis quisquam!..
-                        <br>
-                        <br>
-
-                        <i class="fa fa-user">&nbsp;Aby</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-book">&nbsp;Modul 7</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-clock-o">&nbsp;10 Bulan Yang Lalu</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa fa-comments">&nbsp;0 Pembahasan</i>
-                    </p>
-                </div> -->
                 </form>
             </div>
         </div>
     </div>
 <?php } ?>
-
-
-<!-- <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script> -->

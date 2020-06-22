@@ -114,6 +114,16 @@ $siswa = <<<MENUU
 
 MENUU;
 
+$member = <<<MENUU
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li><a href="index.php">Dashboard</a></li>
+					<li><a href="index.php?p=view_kelas_online">Kelas Online</a></li>
+				</ul>
+			</div>
+
+MENUU;
+
 if (isset($_SESSION['nip']) && isset($_SESSION['nama_guru'])) {
 
 
@@ -140,6 +150,14 @@ if (isset($_SESSION['nip']) && isset($_SESSION['nama_guru'])) {
 if (isset($_SESSION['nis']) && isset($_SESSION['nama_siswa'])) {
 	if ($_SESSION['level'] == 'Siswa') {
 		echo $siswa;
+	}
+} else {
+	echo $menuguest;
+}
+
+if (isset($_SESSION['email']) && isset($_SESSION['nama'])) {
+	if ($_SESSION['level'] == 'Member') {
+		echo $member;
 	}
 } else {
 	echo $menuguest;

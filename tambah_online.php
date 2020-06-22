@@ -19,6 +19,7 @@ include_once("lib/koneksi.php");
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="dist/sweetalert.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 	<style type="text/css">
 		.style2 {
 			font-family: "Times New Roman", Times, serif;
@@ -101,8 +102,11 @@ include_once("lib/koneksi.php");
 						<div class="control-group">
 							<label class="control-label">Deskripsi</label>
 							<div class="controls">
-								<textarea name="deskripsi" type="text" class="form-control" rows="10"></textarea>
+								<textarea name="deskripsi" id="editor1" type="text" class="form-control" rows="10"></textarea>
 							</div>
+							<script>
+								CKEDITOR.replace('editor1');
+							</script>
 						</div>
 
 						<div class="control-group">

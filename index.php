@@ -21,8 +21,11 @@ include_once("lib/koneksi.php");
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="dist/sweetalert.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+
 	<script src="js/responsiveslides.min.js"></script>
-	<script type="text/javascript">
+	<script script type="text/javascript">
 		$("#modal-login").modal("show");
 	</script>
 	<style type="text/css">
@@ -97,7 +100,7 @@ include_once("lib/koneksi.php");
 
 		.box p {
 			overflow: hidden;
-			height: 100px;
+			height: 50px;
 			padding-left: 15px;
 			padding-right: 15px;
 			margin: 0px;
@@ -146,7 +149,6 @@ include_once("lib/koneksi.php");
 		?>
 		<ul class="nav">
 			<li><a href="?p=produk">Merchandise</a></li>
-			<!-- <li><a href="?p=kategori">Merchandise</a></li> -->
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle">Kategori Merchandise</i></a>
 				<ul class="dropdown-menu">

@@ -34,7 +34,10 @@ while ($sql = mysql_fetch_array($nagari)) {
 					</div>
 					<div class="col-md-8">
 						<p><b><?php echo $sql['nama']; ?></b><br><?php echo $sql['jabatan']; ?></p>
+						<br>
+						<br>
 					</div>
+
 				</div>
 			</div>
 		</div>

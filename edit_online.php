@@ -19,6 +19,7 @@ include_once("lib/koneksi.php");
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="dist/sweetalert.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 	<style type="text/css">
 		.style2 {
 			font-family: "Times New Roman", Times, serif;
@@ -111,9 +112,13 @@ include_once("lib/koneksi.php");
 							<div class="control-group">
 								<label class="control-label" for="nama">Deskripsi</label>
 								<div class="controls">
-									<textarea name="deskripsi" type="text" class="form-control" rows="10"><?php echo $data['deskripsi'] ?></textarea>
+									<textarea name="deskripsi" id="editor1" type="text" class="form-control" rows="10" cols="80"><?php echo $data['deskripsi'] ?></textarea>
+									<script>
+										CKEDITOR.replace('editor1');
+									</script>
 								</div>
 							</div>
+
 
 							<div class="control-group">
 								<label class="control-label">Fasilitas</label>
@@ -253,6 +258,35 @@ include_once("lib/koneksi.php");
 	<?php
 	include_once("modal-login.php");
 	?>
+	<script type="text/javascript">
+		function readTextFile(file, callback, encoding) {
+			var reader = new FileReader();
+			reader.addEventListener('load', function(e) {
+				callback(this.result);
+			});
+			if (encoding) reader.readAsText(file, encoding);
+			else reader.readAsText(file);
+		}
+
+		function fileChosen(input, output) {
+			if (input.files && input.files[0]) {
+				readTextFile(
+					input.files[0],
+					function(str) {
+						output.value = str;
+					}
+				);
+			}
+		}
+
+		$('#files').on('change', function() {
+			var result = $("#files").text();
+
+			fileChosen(this, document.getElementById('editor1'));
+			CKEDITOR.instances['editor1'].setData(result);
+		});
+	</script>
+
 </body>
 
 </html>

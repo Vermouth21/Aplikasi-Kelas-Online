@@ -95,9 +95,12 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                 <div class="col-md-10">
                     <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea type="text" name="deskripsi" class="form-control" placeholder="Deskripsi"></textarea>
+                        <textarea id="editor1" type="text" name="deskripsi" class="form-control" placeholder="Deskripsi"></textarea>
                     </div>
                 </div>
+                <script>
+                    CKEDITOR.replace('editor1');
+                </script>
             </div>
 
 
@@ -105,7 +108,7 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                 <div class="col-md-4">
                     <div class="form-group">
                         <button type="submit" name="simpan" value="simpan" id="simpan" class="btn btn-primary">Simpan</button>
-                        <a href="diskusi.php" class="btn btn-primary">Kembali</a>
+                        <a class="btn btn-primary" onclick="goBack()">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -119,6 +122,7 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
             $nama_gambar = $_FILES['gambar']['name'];
             $lokasi      = $_FILES['gambar']['tmp_name'];
             $deskripsi   = $_POST['deskripsi'];
+            $date        = date('Y-m-d');
 
             if (!empty($lokasi)) {
                 move_uploaded_file($lokasi, "images/" . $nama_gambar);
@@ -129,28 +133,32 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                                                             judul, 
                                                             modul_id, 
                                                             gambar,
-                                                            keterangan) 
+                                                            keterangan,
+                                                            date) 
                                                             VALUES
                                                             ('$username',
                                                             '$kelas',
                                                             '$judul',
                                                             '$modul',
                                                             '$nama_gambar',
-                                                            '$deskripsi'
+                                                            '$deskripsi',
+                                                            '$date'
                                                             )");
 
             if ($simpan) {
                 echo "
             <script language=javascript>
+            var id = " . $kelas . "
                 alert('Data Tersimpan');
-                window.location='index.php?p=detail_kelas';
+                window.location.href='index.php?p=detail_kelas&id='+ id;
             </script>
             ";
             } else {
                 echo "
                     <script language=javascript>
+                    var id = " . $kelas_id . "
                         alert('Data tidak Tersimpan');
-                        window.location='index.php?p=detail_kelas';
+                        window.location.href='index.php?p=detail_kelas&id='+ id;
                     </script>
         ";
             }
