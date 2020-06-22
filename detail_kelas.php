@@ -191,39 +191,10 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
         <div id="materi" class="tab-pane fade">
             <?php
             // var_dump($level);
-            if ($_SESSION['level'] != 'Member') {
+            if ($_SESSION['level'] == 'Member' && $_SESSION['status'] == 'aktif') {
             ?>
-                <div class="panel panel-default">
-                    <div class="panel-body bg-danger">
-                        <div class="container">
-                            <p>
-                                <h4>Anda belum terdaftar pada kelas ini.</h4>
-                                <h4>Nikmati kelas premium setelah mengirim bukti transfer.</h4>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        <h4>Silahkan kirimkan bukti transfer ke admin agar dapat mengaskes kelas premium ini.</h4>
-                        <br>
 
-                        <h4>
-                            <ul>
-                                <span>Kontak Admin</span>
-                                <br>
-                                <li>Email mediatamaweb@gmail.com</li>
-                                <li>Whatsapp: 0822-xxxx-xxxx</li>
-                            </ul>
-                        </h4>
-                        <br>
-                        <h4>Kelas akan dapat diakses dalam waktu 3x24 jam setalah mengirim bukti transfer</h4>
 
-                    </p>
-                </div>
-            <?php
-            } else {
-            ?>
                 <div class="col-md-3">
                     <aside>
                         <div class="panel">
@@ -271,16 +242,8 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                         </div>
                     </form>
                 </div>
-
             <?php
-            } ?>
-
-
-        </div>
-
-        <div id="diskusi" class="tab-pane fade">
-            <?php
-            if ($_SESSION['level'] != 'Member') {
+            } else {
             ?>
                 <div class="panel panel-default">
                     <div class="panel-body bg-danger">
@@ -311,7 +274,13 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                     </p>
                 </div>
             <?php
-            } else { ?>
+            } ?>
+        </div>
+
+        <div id="diskusi" class="tab-pane fade">
+            <?php
+            if ($_SESSION['level'] == 'Member' && $_SESSION['status'] == 'aktif') {
+            ?>
                 <div class="col-md-3">
                     <aside>
                         <div class="panel">
@@ -368,6 +337,36 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                             </div>
                         <?php } ?>
                     </form>
+                </div>
+            <?php
+            } else { ?>
+                <div class="panel panel-default">
+                    <div class="panel-body bg-danger">
+                        <div class="container">
+                            <p>
+                                <h4>Anda belum terdaftar pada kelas ini.</h4>
+                                <h4>Nikmati kelas premium setelah mengirim bukti transfer.</h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <h4>Silahkan kirimkan bukti transfer ke admin agar dapat mengaskes kelas premium ini.</h4>
+                        <br>
+
+                        <h4>
+                            <ul>
+                                <span>Kontak Admin</span>
+                                <br>
+                                <li>Email mediatamaweb@gmail.com</li>
+                                <li>Whatsapp: 0822-xxxx-xxxx</li>
+                            </ul>
+                        </h4>
+                        <br>
+                        <h4>Kelas akan dapat diakses dalam waktu 3x24 jam setalah mengirim bukti transfer</h4>
+
+                    </p>
                 </div>
             <?php } ?>
         </div>

@@ -35,6 +35,7 @@ $menuuser = <<<MENUU
 								<li><a href="index.php?p=view_kelas_online">Kelas Online</a></li>
 								<li><a href="kategori_kelas.php">Kategori</a></li>
 								<li><a href="modul.php">Modul</a></li>
+								<li><a href="member.php">Member</a></li>
 							</ul>
 					</li>
 
@@ -159,7 +160,8 @@ if (@$_SESSION['level'] == 'Guru_Piket') {
 } else if (@$_SESSION['level'] == 'Siswa') {
 	echo $siswa;
 } else if (@$_SESSION['level'] == 'Member') {
-	echo $member;}
+	echo $member;
+}
 
 
 // $level=='Guru_Piket' || $level=='Wali_Kelas' || $level=='Guru_BK' || $level='Kepala_Sekolah'

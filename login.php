@@ -39,6 +39,7 @@ if ($level == 'Member') {
 		session_start();
 		$_SESSION['email'] = $ruser['email'];
 		$_SESSION['password'] = $ruser['password'];
+		$_SESSION['status'] = $ruser['status'];
 		$_SESSION['level'] = 'Member';
 
 
