@@ -51,64 +51,21 @@ include_once("lib/koneksi.php");
 				</div>
 				<?php
 				$id	= $_GET['id'];
-				$sql	= mysql_query("SELECT * FROM pendaftaran WHERE pendaftaran_id='$id'");
+				$sql	= mysql_query("SELECT * FROM daftar_kelas WHERE pendaftaran_id='$id'");
 				$data	= mysql_fetch_array($sql);
 				if (mysql_num_rows($sql) > 0) {
 				?>
 					<div class="modal-header">
-						<h3>Edit Member</h3>
+						<h3>Edit Status Member</h3>
 					</div>
 					<div style="margin-top:10px;">
 						<form class="form-horizontal" method="post" action="">
 							<div class="control-group">
-								<label class="control-label">Nama</label>
-								<div class="controls">
-									<input name="id" value="<?php echo $data['pendaftaran_id'] ?>" type="hidden">
-									<input name="nama" value="<?php echo $data['nama'] ?>" type="text" class="form-control">
-								</div>
+								<input name="pendaftaran" value="<?php echo $data['pendaftaran_id'] ?>" type="hidden">
+								<input name="kelas" value="<?php echo $data['kelas_id'] ?>" type="hidden">
 							</div>
 
 							<div class="control-group">
-								<label class="control-label">Email</label>
-								<div class="controls">
-									<input name="email" value="<?php echo $data['email'] ?>" type="text" class="form-control">
-								</div>
-							</div>
-
-							<div class="control-group">
-								<label class="control-label">Password</label>
-								<div class="controls">
-									<input name="password" type="password" value="<?php echo $data['password'] ?>" class="form-control">
-								</div>
-							</div>
-
-							<div class="control-group">
-								<label>Jenis Kelamin</label>
-								<div class="controls">
-									<select class="form-control" name="jenis_kelamin">
-										<option value="<?php echo $data['jenis_kelamin'] ?>"><?php echo $data['jenis_kelamin'] ?></option>
-										<option value="">--Pilih--</option>
-										<option value="Laki - Laki">Laki - Laki</option>
-										<option value="Perempuan">Perempuan</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="control-group">
-								<label class="control-label" for="nama">No Hp</label>
-								<div class="controls">
-									<input name="nohp" value="<?php echo $data['nohp'] ?>" type="number" class="form-control">
-								</div>
-							</div>
-
-							<div class="control-group">
-								<label class="control-label" for="nama">Alamat</label>
-								<div class="controls">
-									<input name="alamat" value="<?php echo $data['alamat'] ?>" type="text" class="form-control">
-								</div>
-							</div>
-
-							<!-- <div class="control-group">
 								<label for="">Status</label>
 								<div class="controls">
 									<select name="status" class="form-control">
@@ -118,12 +75,11 @@ include_once("lib/koneksi.php");
 										<option value="Tidak Aktif">Tidak Aktif</option>
 									</select>
 								</div>
-							</div> -->
+							</div>
 
 							<div class="control-group">
 								<label class="control-label" for="update"></label>
 								<div class="controls">
-									<input type="hidden" name="level" value="Member">
 									<button name="update" type="submit" value="update" class="btn btn-success">Update</button>
 									<button name="batal" type="submit" id="batal" value="Batal" class="btn btn-warning">Batal</button>
 								</div>
@@ -132,28 +88,20 @@ include_once("lib/koneksi.php");
 					<?php }
 
 				if (isset($_POST['update'])) {
-					$nama     		= $_POST['nama'];
-					$email 	 		= $_POST['email'];
-					$password   	= $_POST['password'];
-					$jenis_kelamin	= $_POST['jenis_kelamin'];
-					$nohp  	 		= $_POST['nohp'];
-					$alamat  		= $_POST['alamat'];
-					$level  		= $_POST['level'];
+					$id1     		= $_POST['pendaftaran'];
+					$id2 	 		= $_POST['kelas'];
+					$status  		= $_POST['status'];
 
-					$update = mysql_query("UPDATE pendaftaran SET  			nama			='$nama',
-																			email			='$email',
-																			password		='$password',
-																			jenis_kelamin	='$jenis_kelamin',
-																			nohp			='$nohp',
-																			alamat			='$alamat',
-																			level			='$level'
-																			WHERE
-																			pendaftaran_id	='$id'");
+					$update = mysql_query("UPDATE daftar_kelas SET  pendaftaran_id	='$id1',
+																	kelas_id		='$id2',
+																	status			='$status'
+																	WHERE
+																	id	='$id'");
 
 					echo "<script language=javascript>
-				window.alert('Edit Berhasil');
-				window.location='member.php';
-				</script>";
+							window.alert('Edit Berhasil');
+							window.location='member.php';
+						</script>";
 					exit;
 				}
 

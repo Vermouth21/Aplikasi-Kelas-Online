@@ -31,6 +31,8 @@ if ($level == 'Siswa') {
 }
 
 if ($level == 'Member') {
+	// echo "SELECT * FROM pendaftaran WHERE email='$email' AND password='$password'";
+	// exit;
 
 	$qry = mysql_query("SELECT * FROM pendaftaran WHERE email='$email' AND password='$password'");
 	$numlogin = mysql_num_rows($qry);
@@ -39,9 +41,9 @@ if ($level == 'Member') {
 		session_start();
 		$_SESSION['email'] = $ruser['email'];
 		$_SESSION['password'] = $ruser['password'];
-		$_SESSION['status'] = $ruser['status'];
+		$_SESSION['pendaftaran_id'] = $ruser['pendaftaran_id'];
 		$_SESSION['level'] = 'Member';
-
+		$_SESSION['nama'] = $ruser['nama'];
 
 		echo "<script>alert('Selamat Datang, $_SESSION[nama]');window.location.href='index.php'</script>";
 	} else {

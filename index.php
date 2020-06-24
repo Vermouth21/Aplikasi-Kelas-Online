@@ -18,16 +18,6 @@ include_once("lib/koneksi.php");
 	<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="themea/twitter.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script type="text/javascript" src="dist/sweetalert.min.js"></script>
-	<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-
-
-	<script src="js/responsiveslides.min.js"></script>
-	<script script type="text/javascript">
-		$("#modal-login").modal("show");
-	</script>
 	<style type="text/css">
 		@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
 
@@ -84,8 +74,8 @@ include_once("lib/koneksi.php");
 		.box
 		img
 		{
-		width:90%;
-		height:250px;
+			width:90%;
+			height:250px;
 		}
 		*/
 		.box h3 {
@@ -135,18 +125,21 @@ include_once("lib/koneksi.php");
 </head>
 
 <body>
-
-
-
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="dist/sweetalert.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="js/responsiveslides.min.js"></script>
+	<script script type="text/javascript">
+		$("#modal-login").modal("show");
+	</script>
 	<p align="center">
 		<img src="images/smkn2kerinci.jpg" alt="" width="90%"></p>
 
 	<div class="navbar" id="menu">
-		<?php
+		<?php include_once("menu1.php"); ?>
 
-		include_once("menu1.php");
-
-		?>
 		<ul class="nav">
 			<li><a href="?p=produk">Merchandise</a></li>
 			<li class="dropdown">
@@ -179,27 +172,27 @@ include_once("lib/koneksi.php");
 	<div class="panel-footer">
 		<h6>&copy; Copyright <?php echo date('Y');  ?> All Right Reserved . All Right Reserved. <strong>SMK Negeri 2 Kerinci</strong></h6>
 	</div>
-	<?php
-	include_once("modal-login.php");
-	?>
+
+	<?php include_once("pendaftaran.php"); ?>
+	<?php include_once("modal-login.php"); ?>
 
 	<script>
 		function goBack() {
 			window.history.back();
 		}
 	</script>
+	<script defer src="js/jquery.flexslider.js"></script>
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+
+	<script>
+		// Can also be used with $(document).ready()
+		$(window).load(function() {
+			$('.flexslider').flexslider({
+				animation: "slide",
+				controlNav: "thumbnails"
+			});
+		});
+	</script>
 </body>
 
 </html>
-<script defer src="js/jquery.flexslider.js"></script>
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-
-<script>
-	// Can also be used with $(document).ready()
-	$(window).load(function() {
-		$('.flexslider').flexslider({
-			animation: "slide",
-			controlNav: "thumbnails"
-		});
-	});
-</script>

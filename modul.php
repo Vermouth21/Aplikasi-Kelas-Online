@@ -69,19 +69,24 @@ include_once("lib/koneksi.php");
                                     <h5>No</h5>
                                 </font>
                             </td>
-                            <td width="20%">
+                            <td width="25%">
                                 <font face="Comic Sans MS, cursive" class="text-error text-center">
-                                    <h5>Nama Kategori</h5>
+                                    <h5>Kelas</h5>
                                 </font>
                             </td>
                             <td width="25%">
                                 <font face="Comic Sans MS, cursive" class="text-error text-center">
-                                    <h5>Judul Kelas</h5>
+                                    <h5>Judul Materi</h5>
                                 </font>
                             </td>
                             <td width="30%">
                                 <font face="Comic Sans MS, cursive" class="text-error text-center">
                                     <h5>Modul</h5>
+                                </font>
+                            </td>
+                            <td width="30%">
+                                <font face="Comic Sans MS, cursive" class="text-error text-center">
+                                    <h5>Link Video</h5>
                                 </font>
                             </td>
                             <td width="20%">
@@ -92,14 +97,15 @@ include_once("lib/koneksi.php");
                             </thead>
 
                             <?php
-                            $s = mysql_query("SELECT * FROM modul");
+                            $s = mysql_query("SELECT * FROM modul JOIN kelas_online ON modul.kelas_id = kelas_online.kelas_id");
                             while ($data = mysql_fetch_array($s)) {
                             ?>
                                 <tbody align="center">
                                     <td><?php echo $i ?></td>
-                                    <td><?php echo $data['nama_kelas']; ?></td>
-                                    <td><?php echo $data['kelas_id']; ?></td>
+                                    <td><?php echo $data['judul']; ?></td>
+                                    <td><?php echo $data['judul_materi']; ?></td>
                                     <td><?php echo $data['modul']; ?></td>
+                                    <td><?php echo $data['link']; ?></td>
                                     <td>
                                         <a class="btn btn-small btn-warning" href="edit_modul.php?id=<?php echo $data['id']; ?>" title="Edit">Edit</a>
                                         <a class="btn btn-small btn-danger" href="hapus_modul.php?id=<?php echo $data['id']; ?>" d title="Hapus">Hapus</a>

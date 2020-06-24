@@ -3,6 +3,55 @@ $id = $_GET['id'];
 $data_informasi = mysql_fetch_assoc(mysql_query("SELECT * FROM kelas_online WHERE kelas_id='$id'"));
 $data_materi = mysql_fetch_assoc(mysql_query("SELECT * FROM modul WHERE id='$id'"));
 $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"));
+
+$terdaftar = false;
+$status = mysql_query("SELECT * FROM daftar_kelas");
+
+if (isset($_POST['daftar'])) {
+
+    $terdaftar = true;
+    $pendaftaran = $_SESSION['pendaftaran_id'];
+    $kelas_id =  $id['kelas_id'];
+
+    $sql =  mysql_query("SELECT * FROM daftar_kelas WHERE pendaftaran_id = '$pendaftaran' AND kelas_id = '$kelas_id'");
+
+    $query = mysql_num_rows($sql);
+
+    if ($_SESSION['level'] != 'Member') {
+
+        echo "<script>
+                Swal.fire(
+                    'Opss!',
+                    'Silahkan daftar jadi member terlebih dahulu!',
+                    'error'
+                );
+                </script>";
+    } else {
+        if ($query < 1) {
+            $simpan = mysql_query("INSERT INTO `daftar_kelas`(pendaftaran_id, kelas_id, status) 
+                                                VALUES
+                                                ('$pendaftaran','$kelas_id','Tidak Aktif')");
+            if ($simpan) {
+                echo "<script>
+                                Swal.fire(
+                                    'Selamat!',
+                                    'Anda Telah Berhasil Mendaftar Pada Kelas Ini!',
+                                    'success'
+                                );
+                                
+                                </script>";
+            }
+        } else {
+            echo "<script>
+                                Swal.fire(
+                                    'Ops!',
+                                    'Anda Sudah terdaftar Pada Kelas Ini!',
+                                    'warning'
+                                )
+                                </script>";
+        }
+    }
+}
 ?>
 
 <div class="container">
@@ -65,105 +114,27 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                                         <h4 class="text-center" style="margin-top: -20px; margin-bottom: -10px">
                                             <strong> <?php echo $sql['judul']; ?> </strong><br>
                                             <strong>Rp.&nbsp;<span class="text-primary" align=left><?php echo number_format($sql['biaya'], 0, ',', '.'); ?></span> </strong><br><br>
-                                            <strong><a data-toggle="modal" data-target="#myModal" class="btn btn-danger lead" href="">Daftar Webinar </a></strong>
+                                            <form action="" method="POST">
+                                                <strong><button type="submit" name="daftar" class="btn btn-danger lead" href="">Daftar Webinar </button></strong>
+                                            </form>
                                         </h4>
                                     </div>
 
-                                    <!-- Modal -->
-                                    <div id="myModal" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
 
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Masukkan data anda dengan benar !!!</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="" method="POST">
-                                                        <div class="form-group">
-                                                            <input type="hidden" value="<?php echo $sql['kelas_id'] ?>" name="kelas_id">
-                                                            <label for="">Nama :</label>
-                                                            <input type="text" class="form-control" placeholder="Masukkan nama anda..." name="nama">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="">Email :</label>
-                                                            <input type="email" class="form-control" placeholder="Masukkan email anda..." name="email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="">Password :</label>
-                                                            <input type="password" class="form-control" placeholder="Masukkan password anda..." name="password">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="">Jenis Kelamin :</label>
-                                                            <select name="jenis_kelamin" id="" class="form-control">
-                                                                <option value="Laki-laki">Laki-laki</option>
-                                                                <option value="Perempuan">Perempuan</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="">No HP :</label>
-                                                            <input type="number" class="form-control" placeholder="Masukkan nomor anda..." name="nohp">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="">Alamat :</label>
-                                                            <input type="text" class="form-control" placeholder="Masukkan alamat anda..." name="alamat">
-                                                        </div>
-                                                        <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-
-                                                </div>
-                                            </div>
-                                            <?php
-                                            if (isset($_POST['simpan'])) {
-                                                // var_dump($_POST);
-                                                // exit;
-                                                $kelas_id = $_POST['kelas_id'];
-                                                $nama = $_POST['nama'];
-                                                $email = $_POST['email'];
-                                                $password = $_POST['password'];
-                                                $pass = md5($password);
-                                                $jenis_kelamin = $_POST['jenis_kelamin'];
-                                                $nohp = $_POST['nohp'];
-                                                $alamat = $_POST['alamat'];
-
-                                                $simpan = mysql_query("INSERT INTO `pendaftaran`(kelas_id, nama, email, password, jenis_kelamin, nohp, alamat, level) 
-                                                                    VALUES
-                                                                    ('$kelas_id','$nama','$email','$pass','$jenis_kelamin','$nohp','$alamat','Member')");
-                                                if ($simpan) {
-                                                    echo "<script>
-                                                    var id = " . $kelas_id . "
-                                                    alert('Anda Telah Berhasil Mendaftar');
-                                                    window.location.href='index.php?p=detail_kelas&id='+ id;
-                                                    </script>";
-                                                } else {
-                                                    echo "<script>
-                                                    var id = " . $kelas_id . "
-                                                    alert('Gagal mendaftar, Silahkan ulangi kembali');
-                                                    window.location.href='index.php?p=detail_kelas&id='+ id;
-                                                    </script>";
-                                                }
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
 
                                     <div class="panel-body" style="margin-top: -20px; height: 70px">
                                         <div class="row text-center" style="height: 70px">
                                             <div class=" col-md-2">
-                                                <img style="height: 50px; margin-left: 40px; " src="images/<?php echo $sql['foto']; ?>" class="img-circle" alt=" Mentor">
+                                                <img style="height: 50px; margin-left: 20px; " src="images/<?php echo $sql['foto']; ?>" class="img-circle" alt=" Mentor">
                                             </div>
-                                            <div class="col-md-8">
-                                                <p><b><?php echo $sql['nama']; ?></b><br><?php echo $sql['jabatan']; ?></p>
+                                            <div class="col-md-10">
+                                                <p style="margin-right: 50px;"><b><?php echo $sql['nama']; ?></b><br><?php echo $sql['jabatan']; ?></p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="panel-body">
-                                        <!-- <div class="col-md-12"> -->
-                                        <strong class="lead">Keterangan</strong>
+                                        <strong class="lead" style="margin-left: 100px;">Keterangan</strong>
                                         <div class="col-md-12">
                                             <h5>
                                                 <?php
@@ -172,9 +143,11 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                                                 $data4 = $pecah[1];
                                                 $data5 = $pecah[2];
                                                 ?>
-                                                <?php echo $data3 ?><br>
-                                                <?php echo $data4 ?><br>
-                                                <?php echo $data5 ?><br>
+                                                <div class="container" style="margin-left: 50px;">
+                                                    <i class="fa fa-calendar"> <?php echo $data3 ?></i> |
+                                                    <i class="fa fa-book"> <?php echo $data4 ?></i> |
+                                                    <i class="fa fa-video-camera"> <?php echo $data5 ?></i>
+                                                </div>
                                             </h5>
 
                                         </div>
@@ -182,27 +155,26 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+
                     </aside>
                 </div>
             </div>
+        <?php } ?>
         </div>
 
         <div id="materi" class="tab-pane fade">
             <?php
-            // var_dump($level);
-            if ($_SESSION['level'] == 'Member' && $_SESSION['status'] == 'aktif') {
+            $data = mysql_fetch_array(mysql_query("SELECT * FROM daftar_kelas WHERE pendaftaran_id='$_SESSION[pendaftaran_id]' AND kelas_id='$_GET[id]'"));
+            if ($_SESSION['level'] == 'Member' && $data['status'] == 'Aktif' && $data['kelas_id'] == $id) {
             ?>
-
-
                 <div class="col-md-3">
                     <aside>
                         <div class="panel">
                             <div class="panel-body bg-primary">
-                                <h2>Materi</h2><br>
+                                <h2>Materi</h2>
                                 <h4>
-                                    <p>
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum similique voluptates neque nemo. Inventore optio, at suscipit quo nesciunt iusto animi veritatis ullam dicta alias perspiciatis, maxime vero, aut temporibus!
+                                    <p align=justify>
+                                        Disini kami menyedikan modul dan video sebagai bahan pembelejaran, silahkan download sesuai dengan urutan yang ada ditabel dan selamat belajar dan menikmati kelas premium!
                                     </p>
                                 </h4>
                             </div>
@@ -210,15 +182,15 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                     </aside>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <form action="index.php" method="get">
                         <div class="box" style="height: auto">
                             <table class="table table-condensed table-bordered table-hover">
-                                <thead>
+                                <thead class="text-center">
                                     <td>No</td>
                                     <td>Judul Materi</td>
-                                    <td>Nama Modul</td>
-                                    <td>Aksi</td>
+                                    <td>Download Modul</td>
+                                    <td>Video</td>
                                 </thead>
                                 <?php
                                 $no = 1;
@@ -226,15 +198,31 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                                 while ($sql = mysql_fetch_array($a)) {
                                 ?>
                                     <tbody>
-                                        <td><?php echo $no++ ?></td>
-                                        <td><?php echo $sql['nama_kelas']; ?></td>
-                                        <td><?php echo $sql['modul']; ?></td>
-                                        <td>
-                                            <center>
-                                                <a href="images/<?php echo $sql['modul']; ?>">
-                                                    <i class="fa fa-download"></i>
-                                                </a>
-                                            </center>
+                                        <td class="text-center"><?php echo $no++ ?></td>
+                                        <td><?php echo $sql['judul_materi']; ?></td>
+                                        <td class="text-center">
+                                            <?php
+                                            if ($sql['modul'] != NULL) { ?>
+                                                <center>
+                                                    <a href="images/<?php echo $sql['modul']; ?>">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                </center>
+                                            <?php } else { ?>
+                                                <h3>-</h3>
+                                            <?php } ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?php
+                                            if ($sql['link'] != NULL) { ?>
+                                                <center>
+                                                    <a href="<?php echo $sql['link']; ?>" target="_blank">
+                                                        <i class="fa fa-video-camera"></i>
+                                                    </a>
+                                                </center>
+                                            <?php } else { ?>
+                                                <h3>-</h3>
+                                            <?php } ?>
                                         </td>
                                     </tbody>
                                 <?php } ?>
@@ -257,15 +245,14 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                 </div>
                 <div class="panel-body">
                     <p>
-                        <h4>Silahkan kirimkan bukti transfer ke admin agar dapat mengaskes kelas premium ini.</h4>
+                        <h4>Jika sudah mendaftar, Silahkan kirimkan bukti transfer ke admin melalui kontak dibawah agar dapat mengaskes kelas premium ini.</h4>
                         <br>
-
                         <h4>
                             <ul>
                                 <span>Kontak Admin</span>
                                 <br>
                                 <li>Email mediatamaweb@gmail.com</li>
-                                <li>Whatsapp: 0822-xxxx-xxxx</li>
+                                <li href="https://api.whatsapp.com/send?phone=+6282170214495">Whatsapp</li>
                             </ul>
                         </h4>
                         <br>
@@ -279,7 +266,8 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
 
         <div id="diskusi" class="tab-pane fade">
             <?php
-            if ($_SESSION['level'] == 'Member' && $_SESSION['status'] == 'aktif') {
+            $dataran = mysql_fetch_array(mysql_query("SELECT * FROM daftar_kelas WHERE pendaftaran_id='$_SESSION[pendaftaran_id]' AND kelas_id='$_GET[id]'"));
+            if ($_SESSION['level'] == 'Member' && $dataran['status'] == 'Aktif' && $dataran['kelas_id'] == $id) {
             ?>
                 <div class="col-md-3">
                     <aside>
@@ -352,7 +340,7 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
                 </div>
                 <div class="panel-body">
                     <p>
-                        <h4>Silahkan kirimkan bukti transfer ke admin agar dapat mengaskes kelas premium ini.</h4>
+                        <h4>Jika sudah mendaftar, Silahkan kirimkan bukti transfer ke admin melalui kontak dibawah agar dapat mengaskes kelas premium ini.</h4>
                         <br>
 
                         <h4>
@@ -372,3 +360,13 @@ $data_diskusi = mysql_fetch_assoc(mysql_query("SELECT tb_diskusi WHERE id='$id'"
         </div>
     </div>
 </div>
+
+<?php
+if ($terdaftar) {
+?>
+    <script>
+        $('a[href="#materi"]').tab('show');
+    </script>
+<?php
+}
+?>

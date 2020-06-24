@@ -3,9 +3,9 @@
 $menuguest = <<<MENUG
 			<div class="navbar-inner">
 				<ul class="nav">
-
+					<li><a data-toggle="modal" data-target="#myModal">Register</a></li>
 					<li><a href="#" role="button" data-toggle="modal" data-target="#modal-login">Login</a></li>
-					<li><a href="index.php?p=view_kelas_online">Kelas Online</a></li
+					<li><a href="index.php?p=view_kelas_online">Kelas Online</a></li>
 				</ul>
 			</div>
 MENUG;

@@ -50,10 +50,7 @@ include_once("lib/koneksi.php");
                 </div>
                 <div>
                     <div class="modal-header">
-                        <h3>List Member</h3>
-                    </div>
-                    <div style="margin-top:10px" class="text-right">
-                        <!-- <a href="tambah_online.php"><input name="tambah" type="submit" id="dataTable" value="Tambah Kelas" class="btn btn-primary"></a> -->
+                        <h3>List Akun Member</h3>
                     </div>
                     <div style="margin-top:15px" class="table-responsive">
                         <table class="table table-condensed table-bordered table-hover">
@@ -61,11 +58,6 @@ include_once("lib/koneksi.php");
                                 <td width="2%">
                                     <font face="Comic Sans MS, cursive" class="text-error text-center">
                                         <h5>No</h5>
-                                    </font>
-                                </td>
-                                <td width="3%">
-                                    <font face="Comic Sans MS, cursive" class="text-error text-center">
-                                        <h5>Kelas</h5>
                                     </font>
                                 </td>
                                 <td width="10%">
@@ -98,12 +90,6 @@ include_once("lib/koneksi.php");
                                         <h5>Alamat</h5>
                                     </font>
                                 </td>
-                                <td width="5%">
-                                    <font face="Comic Sans MS, cursive" class="text-error text-center">
-                                        <h5>Status</h5>
-                                    </font>
-                                </td>
-
                                 <td width="12%">
                                     <font face="Comic Sans MS, cursive" class="text-error text-center">
                                         <h5>Aksi</h5>
@@ -118,14 +104,12 @@ include_once("lib/koneksi.php");
                             ?>
                                 <tbody align="center">
                                     <td><?php echo $no++ ?></td>
-                                    <td><?php echo $data['kelas_id']; ?></td>
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['email']; ?></td>
                                     <td><?php echo $data['password']; ?></td>
                                     <td><?php echo $data['jenis_kelamin']; ?></td>
                                     <td><?php echo $data['nohp']; ?></td>
                                     <td><?php echo $data['alamat']; ?></td>
-                                    <td><?php echo $data['status']; ?></td>
                                     <td>
                                         <a class="btn btn-warning" href="edit_member.php?id=<?php echo $data['pendaftaran_id']; ?>">
                                             Edit</a>
@@ -149,6 +133,61 @@ include_once("lib/koneksi.php");
                 </div> -->
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>List Akun Member Yang Mendaftar Kelas</h3>
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered table-hover">
+                        <thead>
+                            <td width="5%">
+                                <font face="Comic Sans MS, cursive" class="text-error text-center">
+                                    <h5>No</h5>
+                                </font>
+                            </td>
+                            <td width="20%">
+                                <font face="Comic Sans MS, cursive" class="text-error text-center">
+                                    <h5>Id Pendaftaran</h5>
+                                </font>
+                            </td>
+                            <td width="20%">
+                                <font face="Comic Sans MS, cursive" class="text-error text-center">
+                                    <h5>Kelas</h5>
+                                </font>
+                            </td>
+                            <td width="20%">
+                                <font face="Comic Sans MS, cursive" class="text-error text-center">
+                                    <h5>Status</h5>
+                                </font>
+                            </td>
+                            <td width="20%">
+                                <font face="Comic Sans MS, cursive" class="text-error text-center">
+                                    <h5>Aksi</h5>
+                                </font>
+                            </td>
+                        </thead>
+
+                        <?php
+                        $no = 1;
+                        $s = mysql_query("SELECT * FROM daftar_kelas JOIN pendaftaran ON daftar_kelas.pendaftaran_id = pendaftaran.pendaftaran_id JOIN kelas_online ON daftar_kelas.kelas_id = kelas_online.kelas_id");
+                        while ($data = mysql_fetch_array($s)) {
+                        ?>
+                            <tbody align="center">
+                                <td><?php echo $no++ ?></td>
+                                <td><?php echo $data['nama']; ?></td>
+                                <td><?php echo $data['judul']; ?></td>
+                                <td><?php echo $data['status']; ?></td>
+                                <td>
+                                    <a class="btn btn-warning" href="edit_status_member.php?id=<?php echo $data['id']; ?>">
+                                        Edit</a>
+                                </td>
+                            </tbody>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
     </div>
     <div class="panel-footer">
         <h6>&copy; Copyright <?php echo date('Y');  ?> All Right Reserved . All Right Reserved. <strong>SMK Negeri 2 Kerinci</strong></h6>

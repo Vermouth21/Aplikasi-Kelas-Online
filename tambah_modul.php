@@ -60,7 +60,7 @@ include_once("lib/koneksi.php");
 								<select class="form-control" name="nama">
 									<option value="">--Pilih--</option>
 									<?php
-									$a = mysql_query("SELECT * FROM kategori");
+									$a = mysql_query("SELECT * FROM kategori WHERE kategori = 'Materi'");
 									while ($b = mysql_fetch_array($a)) {
 										echo '<option value="' . $b['kategori'] . '">' . $b['kategori'] . '</option>';
 									}
@@ -85,9 +85,23 @@ include_once("lib/koneksi.php");
 						</div>
 
 						<div class="control-group">
+							<label class="control-label">Judul Materi</label>
+							<div class="controls">
+								<input name="judul" type="text" class="form-control">
+							</div>
+						</div>
+
+						<div class="control-group">
 							<label class="control-label">Modul</label>
 							<div class="controls">
 								<input name="gambar[]" type="file" class="form-control" multiple>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">Link Video</label>
+							<div class="controls">
+								<input name="link" type="text" class="form-control">
 							</div>
 						</div>
 
@@ -105,8 +119,10 @@ include_once("lib/koneksi.php");
 			<?php
 			if (isset($_POST['simpan'])) {
 				$nama     	 = $_POST['nama'];
-				$judul     	 = $_POST['kelas'];
+				$kelas     	 = $_POST['kelas'];
+				$judul     	 = $_POST['judul'];
 				$jumlah = count($_FILES['gambar']['name']);
+				$link     	 = $_POST['link'];
 
 				if ($jumlah > 0) {
 					for ($i = 0; $i < $jumlah; $i++) {
@@ -117,7 +133,7 @@ include_once("lib/koneksi.php");
 							move_uploaded_file($lokasi, "images/" . $nama_gambar);
 						}
 
-						$simpan = mysql_query("INSERT INTO `modul`(nama_kelas,kelas_id, modul) VALUES ('$nama','$judul','$nama_gambar')");
+						$simpan = mysql_query("INSERT INTO `modul`(nama_kelas, kelas_id, judul_materi, modul, link) VALUES ('$nama','$kelas','$judul','$nama_gambar','$link')");
 					}
 
 					if ($simpan) {
